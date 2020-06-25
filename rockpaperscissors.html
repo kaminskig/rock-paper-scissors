@@ -1,0 +1,77 @@
+'<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+        <script>
+            let score = [0,0]           
+            const results = ['ROCK', 'PAPER', 'SCISSORS']
+            /*
+            To check who wins = substract index of computer play from index of player play
+
+            result -1 - player loose (0 - 1 // 1 - 2)(
+            result 2 - player loos (2 -0)
+            result 1 - player win (1 - 0 // 2 - 1)
+            result -2 - player win (0 - 2)
+            result 0 - draw 
+            */
+        
+            function computerPlay(){
+                return Math.floor(Math.random()*3)
+            }
+
+            function playRound(playerSelection, computerSelection){
+                let result = playerSelection - computerSelection
+
+                if ((result === -1) || (result === 2)){
+                    score[1] += 1
+                    return `You LOSE. ${results[computerSelection]} beats ${results[playerSelection]}`
+                } else if ((result === 1) || (result === -2)) {
+                    score[0] +=1
+                    return `You WIN. ${results[playerSelection]} beats ${results[computerSelection]}`
+                } else if (result === 0) {
+                    return 'Its a DRAW'
+                }
+            }
+            
+            function game(){
+                alert('Welcome to the game Paper, Rock Scissors. Game ends when somebody gets 5 points')
+                
+                while ((score[0] < 5) && (score[1] < 5)){
+                    const playerSelection = results.indexOf(prompt('Paper, Rock or Scissors?').toUpperCase())
+                    console.log(playerSelection)
+                    if (playerSelection >= 0) {
+                        const computerSelection = computerPlay()
+                        alert(playRound(playerSelection, computerSelection) + '\n\n' + `Player selection is ${results[playerSelection]} and Computer selection is ${results[computerSelection]}` + '\n\n\n' + `Score - Player: ${score[0]}, Computer: ${score[1]}`)
+                    } else {
+                        alert('you have to choose Paper, Rock or Scissors')
+                    }
+                }
+                if (score[0] > score[1]) {
+                    alert('Congratulations. You Win' + '\n\n' + 
+                    `Final results: Player: ${score[0]}, Computer: ${score[1]}` )
+                } else {
+                    alert('Unfortunatelly, You loose' + '\n\n' + 
+                    `Final results: Player: ${score[0]}, Computer: ${score[1]}` )
+                }
+            }
+        
+
+            game()
+            
+        </script>
+    </body>
+</html>'
